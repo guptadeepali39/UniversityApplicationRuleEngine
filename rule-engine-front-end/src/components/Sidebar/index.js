@@ -1,4 +1,4 @@
-import { React } from 'react'
+import { React } from "react";
 import {
   SidebarContainer,
   Icon,
@@ -8,7 +8,7 @@ import {
   SidebarLink,
   SideBtnWrap,
   SidebarRoute,
-} from './sidebarElement'
+} from "./sidebarElement";
 
 const Sidebar = ({ isOpen, toggle }) => {
   return (
@@ -21,15 +21,15 @@ const Sidebar = ({ isOpen, toggle }) => {
           <SidebarLink to="about" onClick={toggle}>
             About
           </SidebarLink>
-          <SidebarLink to="discover" onClick={toggle}>
+          {/* <SidebarLink to="discover" onClick={toggle}>
             Discover
+          </SidebarLink> */}
+          <SidebarLink to="howItWorks" onClick={toggle}>
+            How it works
           </SidebarLink>
-          <SidebarLink to="services" onClick={toggle}>
-            Services
-          </SidebarLink>
-          <SidebarLink to="signup" onClick={toggle}>
+          {/* <SidebarLink to="signup" onClick={toggle}>
             Sign up
-          </SidebarLink>
+          </SidebarLink> */}
           <SidebarLink to="team" onClick={toggle}>
             Team
           </SidebarLink>
@@ -39,7 +39,7 @@ const Sidebar = ({ isOpen, toggle }) => {
         </SideBtnWrap>
       </SidebarWrapper>
     </SidebarContainer>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

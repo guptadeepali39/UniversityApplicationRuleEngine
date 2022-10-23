@@ -1,20 +1,22 @@
-import React, { useState } from 'react'
-import Sidebar from '../components/Sidebar'
-import Navbar from '../components/Navbar'
-import Homepage from '../components/Homepage'
-import Info from '../components/Info'
-import { homeObjOne, homeObjTwo, homeObjThree } from '../components/Info/data'
+import React, { useState } from "react";
+import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
+import Homepage from "../components/Homepage";
+import Info from "../components/Info";
+import { homeObjOne, homeObjTwo, homeObjThree } from "../components/Info/data";
+import Team from "../components/Team";
+import Footer from "../components/Footer";
 
 const Home = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   const signedIn = () => {
-    alert('User not found.')
-  }
+    alert("User not found.");
+  };
 
   return (
     <>
@@ -23,19 +25,11 @@ const Home = () => {
       <Homepage />
       <Info {...homeObjOne} />
       <Info {...homeObjTwo} />
-      <Info {...homeObjThree} />
-      <form style={{ textAlign: 'center', display: 'block' }}>
-        <p> Sign in here: </p>
-        <label>Username</label>
-        <input type="text"></input>
-        <label>Password</label>
-        <input type="password"></input>
-        <button className="btn btn-info" onClick={signedIn}>
-          Login
-        </button>
-      </form>
+      <Team />
+      {/* <Info {...homeObjThree} /> */}
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
