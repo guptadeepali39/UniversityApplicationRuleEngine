@@ -75,11 +75,11 @@ export const TeamH1 = styled.h1`
 export const TeamH2 = styled.h2`
   font-size: 1rem;
   margin-bottom: 10px;
-  text-decoration : underline;
+  text-decoration: underline;
 `;
 
 export const TeamP = styled.p`
   font-size: 1rem;
   text-align: center;
-  margin-bottom: 0
+  margin-bottom: 0;
 `;

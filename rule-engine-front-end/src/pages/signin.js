@@ -15,7 +15,7 @@ const SignInPage = () => {
 
   return (
     <>
-    <ScrollToTop />
+      <ScrollToTop />
       <SignIn />
     </>
   );

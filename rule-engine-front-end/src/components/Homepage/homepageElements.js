@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { MdKeyboardArrowRight, MdArrowForward } from 'react-icons/md'
+import styled from "styled-components";
+import { MdKeyboardArrowRight, MdArrowForward } from "react-icons/md";
 
 export const HomepageContainer = styled.div`
   background: #0c0c0c;
@@ -12,7 +12,7 @@ export const HomepageContainer = styled.div`
   z-index: 1;
 
   :before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -25,7 +25,7 @@ export const HomepageContainer = styled.div`
       linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, transparent 100%);
     z-index: 2;
   }
-`
+`;
 
 export const HomepageBg = styled.div`
   position: absolute;
@@ -36,7 +36,7 @@ export const HomepageBg = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden;
-`
+`;
 
 export const VideoBg = styled.video`
   width: 100%;
@@ -44,7 +44,7 @@ export const VideoBg = styled.video`
   -o-object-fit: cover;
   object-fit: cover;
   background: #232a34;
-`
+`;
 
 export const HomepageContent = styled.div`
   z-index: 3;
@@ -54,7 +54,7 @@ export const HomepageContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 export const HomepageH1 = styled.h1`
   color: #fff;
@@ -68,7 +68,7 @@ export const HomepageH1 = styled.h1`
   @media screen and (max-width: 480px) {
     font-size: 32px;
   }
-`
+`;
 
 export const HomepageP = styled.p`
   margin-top: 24px;
@@ -84,21 +84,21 @@ export const HomepageP = styled.p`
   @media screen and (max-width: 480px) {
     font-size: 18px;
   }
-`
+`;
 
 export const HomepageBtnWrapper = styled.div`
   margin-top: 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 export const ArrowForward = styled(MdArrowForward)`
   margin-left: 8px;
   font-size: 20px;
-`
+`;
 
 export const ArrowRight = styled(MdKeyboardArrowRight)`
   margin-left: 8px;
   font-size: 20px;
-`
+`;

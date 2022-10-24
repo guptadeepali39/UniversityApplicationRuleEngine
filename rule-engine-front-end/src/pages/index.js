@@ -26,7 +26,6 @@ const Home = () => {
       <Info {...homeObjOne} />
       <Info {...homeObjTwo} />
       <Team />
-      {/* <Info {...homeObjThree} /> */}
       <Footer />
     </>
   );

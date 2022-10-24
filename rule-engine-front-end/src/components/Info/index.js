@@ -1,5 +1,5 @@
-import React from 'react'
-import { Button } from '../buttonElements'
+import React from "react";
+import { Button } from "../buttonElements";
 import {
   InfoContainer,
   InfoWrapper,
@@ -13,7 +13,7 @@ import {
   Column2,
   ImgWrap,
   Img,
-} from './infoElements'
+} from "./infoElements";
 
 const Info = ({
   lightBg,
@@ -43,7 +43,7 @@ const Info = ({
                 <Subtitle lightText={lightText}>{description}</Subtitle>
                 <BtnWrap>
                   <Button
-                    to="home"
+                    to="/signin"
                     smooth={true}
                     duration={500}
                     spy={true}
@@ -51,8 +51,7 @@ const Info = ({
                     offset={-80}
                     primary={primary ? 1 : 0}
                     dark={dark ? 1 : 0}
-                    dark2={dark2 ? 1 : 0}
-                  >
+                    dark2={dark2 ? 1 : 0}>
                     {buttonLabel}
                   </Button>
                 </BtnWrap>
@@ -67,7 +66,7 @@ const Info = ({
         </InfoWrapper>
       </InfoContainer>
     </>
-  )
-}
+  );
+};
 
-export default Info
+export default Info;

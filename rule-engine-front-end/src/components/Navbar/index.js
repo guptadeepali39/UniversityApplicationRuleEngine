@@ -14,60 +14,82 @@ import {
 import { FaBars } from "react-icons/fa";
 import { animateScroll as scroll } from "react-scroll";
 
-const Navbar = ({toggle})=>{
-  const [scrollNav, setScrollNav] = useState(false)
+const Navbar = ({ toggle }) => {
+  const [scrollNav, setScrollNav] = useState(false);
 
   const changeNav = () => {
-    if(window.scrollY >= 80){
-      setScrollNav(true)
+    if (window.scrollY >= 80) {
+      setScrollNav(true);
+    } else {
+      setScrollNav(false);
     }
-    else{
-      setScrollNav(false)
-    }
-  }
+  };
 
-useEffect(()=>{
-  window.addEventListener('scroll', changeNav)
-}, [])
+  useEffect(() => {
+    window.addEventListener("scroll", changeNav);
+  }, []);
 
-const toggleHome = () =>{
-  scroll.scrollToTop()
-}
+  const toggleHome = () => {
+    scroll.scrollToTop();
+  };
 
-return (
-  <>
-  <IconContext.Provider value={{color: 'black'}}>
-    <Nav scrollNav = {scrollNav}>
-      <NavbarContainer>
-        <NavLogo to="/" onClick={toggleHome}>Rule Engine</NavLogo>
-        <MobileIcon onClick={toggle}>
-          <FaBars />
-        </MobileIcon>
-        <NavMenu>
-          <NavItem>
-            <NavLinks to="about" smooth={true} duration={500} spy={true} exact='true' offset={-80}
-            activeClass='active'>About</NavLinks>
-          </NavItem>
-          {/* <NavItem>
-            <NavLinks to="discover" smooth={true} duration={500} spy={true} exact='true' offset={-80} activeClass='active'>Discover</NavLinks>
-          </NavItem> */}
-          <NavItem>
-            <NavLinks to="howItWorks" smooth={true} duration={500} spy={true} exact='true' offset={-80} activeClass='active'>How it works</NavLinks>
-          </NavItem>
-          {/* <NavItem>
-            <NavLinks to="signup" smooth={true} duration={500} spy={true} exact='true' offset={-80} activeClass='active'>Sign up</NavLinks>
-          </NavItem> */}
-          <NavItem>
-            <NavLinks to="team" smooth={true} duration={500} spy={true} exact='true' offset={-80} activeClass='active'>Team</NavLinks>
-          </NavItem>
-        </NavMenu>
-        <NavBtn>
-          <NavBtnLink to="/signin">Sign in</NavBtnLink>
-        </NavBtn>
-      </NavbarContainer>
-    </Nav>
-    </IconContext.Provider>
-  </>
-)};
+  return (
+    <>
+      <IconContext.Provider value={{ color: "black" }}>
+        <Nav scrollNav={scrollNav}>
+          <NavbarContainer>
+            <NavLogo to="/" onClick={toggleHome}>
+              Rule Engine
+            </NavLogo>
+            <MobileIcon onClick={toggle}>
+              <FaBars />
+            </MobileIcon>
+            <NavMenu>
+              <NavItem>
+                <NavLinks
+                  to="about"
+                  smooth={true}
+                  duration={500}
+                  spy={true}
+                  exact="true"
+                  offset={-80}
+                  activeClass="active">
+                  About
+                </NavLinks>
+              </NavItem>
+              <NavItem>
+                <NavLinks
+                  to="howItWorks"
+                  smooth={true}
+                  duration={500}
+                  spy={true}
+                  exact="true"
+                  offset={-80}
+                  activeClass="active">
+                  How it works
+                </NavLinks>
+              </NavItem>
+              <NavItem>
+                <NavLinks
+                  to="team"
+                  smooth={true}
+                  duration={500}
+                  spy={true}
+                  exact="true"
+                  offset={-80}
+                  activeClass="active">
+                  Team
+                </NavLinks>
+              </NavItem>
+            </NavMenu>
+            <NavBtn>
+              <NavBtnLink to="/signin">Sign in</NavBtnLink>
+            </NavBtn>
+          </NavbarContainer>
+        </Nav>
+      </IconContext.Provider>
+    </>
+  );
+};
 
 export default Navbar;
