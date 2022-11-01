@@ -1,0 +1,23 @@
+import com.capstone.ruleengine.domain.Student;
+
+global com.capstone.ruleengine.dto.EligibilityDTO eligibilityDto;
+global org.slf4j.Logger log;
+
+dialect  "mvel"
+
+rule "International student"
+	when
+    	$student : Student()
+        Student(!nationality.equalsIgnoreCase("Canadian"))         
+	then
+		log.info("1 International student : {}", $student);
+        eligibilityDto.setResult("Reject");
+end
+rule "Canadian student"
+	when
+    	$student : Student()
+        Student(nationality.equalsIgnoreCase("Canadian"))         
+	then
+		log.info("1 International student : {}", $student);
+        eligibilityDto.setResult("Approved");
+end
