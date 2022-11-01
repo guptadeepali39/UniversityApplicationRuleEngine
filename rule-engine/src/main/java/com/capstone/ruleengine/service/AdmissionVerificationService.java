@@ -36,7 +36,7 @@ public class AdmissionVerificationService {
 		KieSession kieSession = droolsEngineConfiguration.getKieContainer(filePath).newKieSession();
 		kieSession.insert(student);
 		kieSession.setGlobal("log", log);
-		kieSession.setGlobal("eligibilityDto", eligibilityDTO);
+		//kieSession.setGlobal("eligibilityDto", eligibilityDTO);
 		kieSession.fireAllRules();
 		return eligibilityDTO;
 
