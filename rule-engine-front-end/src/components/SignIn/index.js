@@ -65,9 +65,9 @@ const SignIn = () => {
               <FormButton type="submit" onClick={login}>
                 Sign in
               </FormButton>
-              <Text>
+              {/* <Text>
                 <u>Forgot password</u> or <u>Sign up</u>
-              </Text>
+              </Text> */}
             </Form>
           </FormContent>
         </FormWrap>

@@ -36,9 +36,9 @@ const Homepage = () => {
             onMouseLeave={onHover}
             primary="true"
             dark="true"
-            smooth={true}
+            // smooth={true}
             duration={500}
-            spy={true}
+            // spy={true}
             exact="true"
             offset={-80}>
             Get started {hover ? <ArrowRight /> : <ArrowForward />}
