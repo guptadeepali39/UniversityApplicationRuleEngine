@@ -10,6 +10,7 @@ import {
   NavMenu,
   NavBtn,
   NavBtnLink,
+  NavLinksSignUpBtn,
 } from "./navbarElements";
 import { FaBars } from "react-icons/fa";
 import { animateScroll as scroll } from "react-scroll";
@@ -80,6 +81,19 @@ const Navbar = ({ toggle }) => {
                   activeClass="active">
                   Team
                 </NavLinks>
+              </NavItem>
+              <NavItem>
+                <NavLinksSignUpBtn
+                  to="/signup"
+                  // smooth={true ? 1 : 0}
+                  // duration={500}
+                  // spy={true}
+                  // exact="true"
+                  // offset={-80}
+                  // activeClass="active"
+                >
+                  Sign up
+                </NavLinksSignUpBtn>
               </NavItem>
             </NavMenu>
             <NavBtn>
