@@ -1,0 +1,53 @@
+
+pipeline {
+    agent any
+      environment {
+          mvnHome = tool name: 'maven', type: 'maven'
+          scannerHome = tool name: 'Sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+          Key = jiraIssueSelector(issueSelector: [$class: 'DefaultIssueSelector'])
+          awsAccess = credentials('jenkins-aws-access-key')
+          awsSecret = credentials('jenkins-aws-secret-key')
+          argocdPassDev = credentials('argo-pass-dev')
+          argocdPassUAT = credentials('argo-pass')
+	  appname = "rule-engine"
+	  tag = "${BUILD_NUMBER}"
+	  Ecr_registry = "https://019712324419.dkr.ecr.us-east-1.amazonaws.com/${appname}"
+          }
+
+   stages {
+
+     stage('Clone repository') { 
+            steps { 
+                script{
+                checkout scm
+                }
+            }
+        }
+
+
+     stage('Build'){
+          steps {
+             sh "${mvnHome}/bin/mvn clean install -Dmaven.test.skip=true"
+              }
+            }
+  
+
+
+  stage('Docker build Dev'){
+        when { branch 'dev' }
+          steps {
+            script { 
+         sh "docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) https://019712324419.dkr.ecr.us-east-1.amazonaws.com"
+         sh "docker build -t ${Ecr_registry}:${tag} ."
+         sh "docker tag ${Ecr_registry}:${tag} ${Ecr_registry}:dev"
+         sh "docker push ${Ecr_registry}:${tag} || true"
+         sh "docker push ${Ecr_registry}:dev || true"
+         sh "sleep 60"
+        }   
+      }
+
+       }
+  
+ 
+  }
+}
