@@ -11,7 +11,7 @@ import {
   Text,
   SignUpButton,
   FormH6,
-} from "./SignupElements";
+} from "./SignUpElements";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../Footer";
@@ -22,11 +22,15 @@ const SignUp = () => {
   var [emailId, setEmail] = useState("");
   var [password, setPassword] = useState("");
   var [confirmPassword, setConfirmPassword] = useState("");
+  var [user, setUser] = useState("");
+  var [isLoggedIn, setIsLoggedIn] = useState(
+    JSON.parse(localStorage.getItem("user"))
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (localStorage.getItem("user")) {
+    if (isLoggedIn) {
       toast.success("User already logged in!", {
         position: toast.POSITION.TOP_RIGHT,
       });
@@ -36,30 +40,31 @@ const SignUp = () => {
 
   async function createAccount(e) {
     localStorage.removeItem("user");
+    setIsLoggedIn(false);
     let item = { emailId, password };
-    let result = await fetch("http://localhost:8000/api/register", {
+    return fetch("http://localhost:8000/api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
       body: JSON.stringify(item),
+    }).then((result) => {
+      result = result.json();
+      if (result.statusCode == "S101") {
+        // localStorage.setItem("user", JSON.stringify(result.userDetails));
+        toast.success(result.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        setTimeout(() => {
+          navigate("/signin");
+        }, 5000);
+      } else {
+        toast.error(result.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
     });
-    result = await result.json();
-    // result.status = "Success";
-    if (result.status == "success") {
-      localStorage.setItem("user", JSON.stringify(result.userDetails));
-      toast.success("User successfully created!", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      setTimeout(() => {
-        navigate("/signin");
-      }, 5000);
-    } else {
-      toast.error(result.message, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    }
   }
 
   return (

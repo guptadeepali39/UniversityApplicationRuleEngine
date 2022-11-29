@@ -58,17 +58,42 @@ const CreateApplication = () => {
   // };
 
   async function getUserDetails() {
-    let result = await fetch(
-      `http://localhost:8000/api/getUserDetails/${user.id}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+    return fetch(`http://localhost:8000/api/getUserDetails/${user.id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }).then((result) => {
+      result = result.json();
+      if (result.statusCode == "S101") {
+        setFirstName(result.studentDetails.firstName);
+        setLastName(result.studentDetails.lastName);
+        setGender(result.studentDetails.gender);
+        setAddress1(result.studentDetails.address1);
+        setAddress2(result.studentDetails.address2);
+        setPincode(result.studentDetails.pincode);
+        setCountry(result.studentDetails.country);
+        setStudentType(result.studentDetails.studentType);
+        setisLanguageTest(result.studentDetails.isLanguageTest);
+        setlanguageTestType(result.studentDetails.languageTestType);
+        setlanguageTestScore(result.studentDetails.languageTestScore);
+        setlevelOfEducation(result.studentDetails.levelOfEducation);
+        setGPA(result.studentDetails.gpa);
+        setrelevantExperince(result.studentDetails.relevantExperince);
+        // setTotalEducation(result.studentDetails.totalEducation);
+        // setFamilyIncome(result.studentDetails.familyIncome);
+        toast.error("Restored existing application.", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       }
-    );
-    result = await result.json();
+      // else {
+      //   toast.error(result.message, {
+      //     position: toast.POSITION.TOP_RIGHT,
+      //   });
+      // }
+    });
+
     // var result = {
     //   status: "success",
     //   statusCode: "S101",
@@ -95,32 +120,6 @@ const CreateApplication = () => {
     //     gpa: 3,
     //   },
     // };
-    if (result.status == "success") {
-      setFirstName(result.studentDetails.firstName);
-      setLastName(result.studentDetails.lastName);
-      setGender(result.studentDetails.gender);
-      setAddress1(result.studentDetails.address1);
-      setAddress2(result.studentDetails.address2);
-      setPincode(result.studentDetails.pincode);
-      setCountry(result.studentDetails.country);
-      setStudentType(result.studentDetails.studentType);
-      setisLanguageTest(result.studentDetails.isLanguageTest);
-      setlanguageTestType(result.studentDetails.languageTestType);
-      setlanguageTestScore(result.studentDetails.languageTestScore);
-      setlevelOfEducation(result.studentDetails.levelOfEducation);
-      setGPA(result.studentDetails.gpa);
-      setrelevantExperince(result.studentDetails.relevantExperince);
-      // setTotalEducation(result.studentDetails.totalEducation);
-      // setFamilyIncome(result.studentDetails.familyIncome);
-      toast.error("Restored existing application.", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    }
-    // else {
-    //   toast.error(result.message, {
-    //     position: toast.POSITION.TOP_RIGHT,
-    //   });
-    // }
   }
 
   function saveUserDetails() {

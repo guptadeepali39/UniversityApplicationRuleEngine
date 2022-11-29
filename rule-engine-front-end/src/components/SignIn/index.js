@@ -21,7 +21,9 @@ const SignIn = () => {
   var [emailId, setEmail] = useState("");
   var [password, setPassword] = useState("");
   var [user, setUser] = useState("");
-  var [isLoggedIn,setIsLoggedIn] = useState(JSON.parse(localStorage.getItem("user")));
+  var [isLoggedIn, setIsLoggedIn] = useState(
+    JSON.parse(localStorage.getItem("user"))
+  );
   var navigate = useNavigate();
 
   useEffect(() => {
@@ -36,47 +38,35 @@ const SignIn = () => {
 
   async function login(e) {
     localStorage.removeItem("user");
-    setIsLoggedIn(false)
+    setIsLoggedIn(false);
     let item = { emailId, password };
-    let result = await fetch("http://localhost:8000/api/login", {
+    return fetch("http://localhost:8000/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
       body: JSON.stringify(item),
+    }).then((result) => {
+      result = result.json();
+      if (result.statusCode == "S101") {
+        localStorage.setItem("user", JSON.stringify(result.userDetails));
+        setIsLoggedIn(true);
+        setUser(result.userDetails);
+        toast.success(result.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      } else {
+        toast.error(result.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
     });
-    result = await result.json();
-    if (result.statusCode == "S101") {
-      // localStorage.setItem(
-      //   "user",
-      //   JSON.stringify({
-      //     status: "Success",
-      //     statusCode: "S101",
-      //     message: "Log in successful",
-      //     userDetails: {
-      //       id: 1,
-      //       emailId: "deepali.gupta@gmail.com",
-      //       password: "dGVzdA==",
-      //     },
-      //   })
-      // );
-      localStorage.setItem("user", JSON.stringify(result.userDetails));
-      setIsLoggedIn(true)
-      toast.success("User successfully logged in!", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      setTimeout(() => {
-        navigate("/");
-      }, 3000);
-    } else {
-      setIsLoggedIn(false)
-      toast.error(result.message, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    }
   }
-  // }
+
   return (
     <>
       <Container id="signin">
