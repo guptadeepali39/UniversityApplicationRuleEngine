@@ -6,6 +6,6 @@ import com.capstone.ingestion.domain.StudentDetails;
 
 public interface StudentDetailsRepository extends JpaRepository<StudentDetails, Integer> {
 	
-	StudentDetails findDetailsByid(Long id);
+	StudentDetails findDetailsByUserId(Long id);
 
 }

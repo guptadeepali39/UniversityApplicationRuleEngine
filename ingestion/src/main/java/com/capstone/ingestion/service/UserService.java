@@ -25,7 +25,7 @@ public class UserService {
 			userRepository.save(user);
 
 			resp.setMessage("User created successfully.");
-			resp.setStatus("success");
+			resp.setStatus("Success");
 			resp.setStatusCode("S101");
 		} else {
 			resp.setMessage("Email id is already registered");

@@ -24,7 +24,7 @@ public class StudentDetailsService {
 			studentDetailsRepository.save(details);
 
 			resp.setMessage("Details saved successfully.");
-			resp.setStatus("success");
+			resp.setStatus("Success");
 			resp.setStatusCode("S101");
 
 			log.info("Student details saved successfully.");
@@ -42,10 +42,10 @@ public class StudentDetailsService {
 	public StudentDetailsResponse getDetails(@RequestBody Long id) {
 		StudentDetailsResponse resp = new StudentDetailsResponse();
 		try {
-			StudentDetails exitsingDetails = studentDetailsRepository.findDetailsByid(id);
+			StudentDetails exitsingDetails = studentDetailsRepository.findDetailsByUserId(id);
 
 			resp.setMessage("Details saved successfully.");
-			resp.setStatus("success");
+			resp.setStatus("Success");
 			resp.setStatusCode("S101");
 			resp.setStudentDetails(exitsingDetails);
 
