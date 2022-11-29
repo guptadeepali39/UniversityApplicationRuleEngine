@@ -37,11 +37,13 @@ const CreateApplication = () => {
   var [relevantExperince, setrelevantExperince] = useState("");
   var [totalEducation, setTotalEducation] = useState("");
   var [familyIncome, setFamilyIncome] = useState("");
-  var [formExists, setFormExists] = useState(false);
+  var [isLoggedIn, setIsLoggedIn] = useState(
+    JSON.parse(localStorage.getItem("user"))
+  );
   var navigate = useNavigate();
 
   useEffect(() => {
-    if (!localStorage.getItem("user")) {
+    if (!isLoggedIn) {
       toast.error("User not logged in!", {
         position: toast.POSITION.TOP_RIGHT,
       });
@@ -57,7 +59,47 @@ const CreateApplication = () => {
   //   window.location.reload();
   // };
 
-  async function getUserDetails() {
+  const getUserDetails = async (e) => {
+    e.preventDefault();
+    try {
+      fetch(`http://localhost:8000/api/getUserDetails/${user.id}`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.statusCode == "S101" && result.status == "Success") {
+            toast.success(result.message);
+            setFirstName(result.studentDetails.firstName);
+            setLastName(result.studentDetails.lastName);
+            setGender(result.studentDetails.gender);
+            setAddress1(result.studentDetails.address1);
+            setAddress2(result.studentDetails.address2);
+            setPincode(result.studentDetails.pincode);
+            setCountry(result.studentDetails.country);
+            setStudentType(result.studentDetails.studentType);
+            setisLanguageTest(result.studentDetails.isLanguageTest);
+            setlanguageTestType(result.studentDetails.languageTestType);
+            setlanguageTestScore(result.studentDetails.languageTestScore);
+            setlevelOfEducation(result.studentDetails.levelOfEducation);
+            setGPA(result.studentDetails.gpa);
+            setrelevantExperince(result.studentDetails.relevantExperince);
+            // setTotalEducation(result.studentDetails.totalEducation);
+            // setFamilyIncome(result.studentDetails.familyIncome);
+          }
+        })
+        .catch((error) => {
+          toast.error("Internal Server Error");
+        });
+    } catch (error) {
+      toast.error("Internal Server Error");
+    }
+  };
+
+  async function getUserDetails2() {
     return fetch(`http://localhost:8000/api/getUserDetails/${user.id}`, {
       method: "GET",
       headers: {
@@ -122,24 +164,13 @@ const CreateApplication = () => {
     // };
   }
 
-  function saveUserDetails() {
-    if (formExists) {
-      updateForm();
-    } else {
-      createForm();
-    }
-  }
-
-  async function updateForm() {}
-
-  async function createForm() {}
+  function saveUserDetails() {}
 
   return (
     <>
       <Container id="signin">
         <FormWrap>
           <Icon to="/">Rule Engine</Icon>
-          {/* <LogoutBtn onClick={logoutCall}>Logout</LogoutBtn> */}
           <ToastContainer />
           <FormContent>
             <Form action="#" className="col-md-12">
