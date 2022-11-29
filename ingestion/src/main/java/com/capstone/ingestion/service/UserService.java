@@ -24,7 +24,7 @@ public class UserService {
 			user.setPassword(encodedPassword);
 			userRepository.save(user);
 
-			resp.setMessage("User created successfully");
+			resp.setMessage("User created successfully.");
 			resp.setStatus("success");
 			resp.setStatusCode("S101");
 		} else {
@@ -55,6 +55,7 @@ public class UserService {
 				userResponse.setMessage("Log in successful");
 				userResponse.setStatus("Success");
 				userResponse.setStatusCode("S101");
+				userResponse.setUser(existingUser.get());
 				return userResponse;
 			}
 			else {

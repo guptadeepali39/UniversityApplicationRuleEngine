@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.capstone.ingestion.domain.StudentDetails;
 import com.capstone.ingestion.repository.StudentDetailsRepository;
 
+import dto.StudentDetailsResponse;
 import dto.UserResponse;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,7 +23,7 @@ public class StudentDetailsService {
 		try {
 			studentDetailsRepository.save(details);
 
-			resp.setMessage("Details saved successfully");
+			resp.setMessage("Details saved successfully.");
 			resp.setStatus("success");
 			resp.setStatusCode("S101");
 
@@ -37,7 +38,27 @@ public class StudentDetailsService {
 		}
 		return resp;
 	}
-	
-	
+
+	public StudentDetailsResponse getDetails(@RequestBody Long id) {
+		StudentDetailsResponse resp = new StudentDetailsResponse();
+		try {
+			StudentDetails exitsingDetails = studentDetailsRepository.findDetailsByid(id);
+
+			resp.setMessage("Details saved successfully.");
+			resp.setStatus("success");
+			resp.setStatusCode("S101");
+			resp.setStudentDetails(exitsingDetails);
+
+			log.info("Student details saved successfully.");
+		} catch (Exception ex) {
+			resp.setMessage("Internal server error.");
+			resp.setStatus("Failed");
+			resp.setStatusCode("E101");
+
+			log.info("Error occurred while saving student details." + ex);
+
+		}
+		return resp;
+	}
 
 }

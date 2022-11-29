@@ -11,7 +11,7 @@ import {
   Text,
   SignUpButton,
   FormH6,
-} from "./SignUpElements";
+} from "./SignupElements";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../Footer";

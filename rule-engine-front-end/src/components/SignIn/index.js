@@ -36,7 +36,41 @@ const SignIn = () => {
     }
   }, []);
 
-  async function login(e) {
+  const login = async (e) => {
+    localStorage.removeItem("user");
+    setIsLoggedIn(false);
+    e.preventDefault();
+    try {
+      fetch('http://localhost:8000/api/login', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ emailId, password }),
+      }).then(res => res.json())
+        .then(result => {
+          if (result.statusCode == 'S101' && result.status == 'Success') {
+            localStorage.setItem("user", JSON.stringify(result.user));
+            setIsLoggedIn(true);
+            setUser(result.userDetails);
+            toast.success(result.message)
+            navigate("/");
+            }
+          else {
+            toast.error(result.message)
+          }
+        })
+        .catch(error => {
+          toast.error("Internal Server Error")
+        })
+    } catch (error) {
+      toast.error("Internal Server Error")
+    }
+  };
+
+
+  function login2(e) {
     localStorage.removeItem("user");
     setIsLoggedIn(false);
     let item = { emailId, password };
