@@ -37,6 +37,7 @@ const CreateApplication = () => {
   var [relevantExperince, setrelevantExperince] = useState("");
   var [totalEducation, setTotalEducation] = useState("");
   var [familyIncome, setFamilyIncome] = useState("");
+  var [formExists, setFormExists] = useState(false);
   var navigate = useNavigate();
 
   useEffect(() => {
@@ -51,46 +52,49 @@ const CreateApplication = () => {
     }
   });
 
-  const logoutCall = () => {
-    localStorage.removeItem("user");
-    window.location.reload();
-  };
+  // const logoutCall = () => {
+  //   localStorage.removeItem("user");
+  //   window.location.reload();
+  // };
 
   async function getUserDetails() {
-    // let result = await fetch(`http://localhost:8000/api/getUserDetails/${user.id}`, {
-    //   method: "GET",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Accept: "application/json",
+    let result = await fetch(
+      `http://localhost:8000/api/getUserDetails/${user.id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+    result = await result.json();
+    // var result = {
+    //   status: "success",
+    //   statusCode: "S101",
+    //   message: "Success",
+    //   studentDetails: {
+    //     id: 7,
+    //     userId: 3,
+    //     firstName: "deepali",
+    //     lastName: "gupta",
+    //     address1: "5 lisburn",
+    //     address2: "North york",
+    //     pincode: "M2J 2Z4",
+    //     country: "Canada",
+    //     studentType: "international",
+    //     gender: "F",
+    //     isLanguageTest: null,
+    //     languageTestType: "IELTS",
+    //     languageTestScore: 9,
+    //     levelOfEducation: "Bachelors",
+    //     previousFieldOfStudy: "Computer Science",
+    //     course: "PG Diploma",
+    //     fieldOfStudy: "CSE",
+    //     relevantExperince: 5.5,
+    //     gpa: 3,
     //   },
-    // });
-    // result = await result.json();
-    var result = {
-      status: "success",
-      statusCode: "S101",
-      message: "Success",
-      studentDetails: {
-        id: 7,
-        userId: 3,
-        firstName: "deepali",
-        lastName: "gupta",
-        address1: "5 lisburn",
-        address2: "North york",
-        pincode: "M2J 2Z4",
-        country: "Canada",
-        studentType: "international",
-        gender: "F",
-        isLanguageTest: null,
-        languageTestType: "IELTS",
-        languageTestScore: 9,
-        levelOfEducation: "Bachelors",
-        previousFieldOfStudy: "Computer Science",
-        course: "PG Diploma",
-        fieldOfStudy: "CSE",
-        relevantExperince: 5.5,
-        gpa: 3,
-      },
-    };
+    // };
     if (result.status == "success") {
       setFirstName(result.studentDetails.firstName);
       setLastName(result.studentDetails.lastName);
@@ -108,10 +112,28 @@ const CreateApplication = () => {
       setrelevantExperince(result.studentDetails.relevantExperince);
       // setTotalEducation(result.studentDetails.totalEducation);
       // setFamilyIncome(result.studentDetails.familyIncome);
+      toast.error("Restored existing application.", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+    // else {
+    //   toast.error(result.message, {
+    //     position: toast.POSITION.TOP_RIGHT,
+    //   });
+    // }
+  }
+
+  function saveUserDetails() {
+    if (formExists) {
+      updateForm();
+    } else {
+      createForm();
     }
   }
 
-  function saveUserDetails() {}
+  async function updateForm() {}
+
+  async function createForm() {}
 
   return (
     <>

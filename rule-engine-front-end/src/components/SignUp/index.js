@@ -45,9 +45,9 @@ const SignUp = () => {
       body: JSON.stringify(item),
     });
     result = await result.json();
-    result.status = "Success";
+    // result.status = "Success";
     if (result.status == "success") {
-      // localStorage.setItem("user", JSON.stringify(result.userDetails));
+      localStorage.setItem("user", JSON.stringify(result.userDetails));
       toast.success("User successfully created!", {
         position: toast.POSITION.TOP_RIGHT,
       });
@@ -55,7 +55,7 @@ const SignUp = () => {
         navigate("/signin");
       }, 5000);
     } else {
-      toast.error("User already exists!", {
+      toast.error(result.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
     }

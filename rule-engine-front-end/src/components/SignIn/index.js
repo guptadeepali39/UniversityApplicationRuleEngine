@@ -33,42 +33,44 @@ const SignIn = () => {
   }, []);
 
   async function login(e) {
-    // let item = { emailId, password };
-    // let result = await fetch("http://localhost:8000/api/login", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Accept: "application/json",
-    //   },
-    //   body: JSON.stringify(item),
-    // });
-    // result = await result.json();
-    // if (result.status == "Success") {
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        status: "Success",
-        statusCode: "S101",
-        message: "Log in successful",
-        userDetails: {
-          id: 1,
-          emailId: "deepali.gupta@gmail.com",
-          password: "dGVzdA==",
-        },
-      })
-    );
-    toast.success("User successfully logged in!", {
-      position: toast.POSITION.TOP_RIGHT,
+    let item = { emailId, password };
+    let result = await fetch("http://localhost:8000/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(item),
     });
-    setTimeout(() => {
-      navigate("/");
-    }, 5000);
-    // } else {
-    //   toast.error("Invalid credentials!", {
-    //     position: toast.POSITION.TOP_RIGHT,
-    //   });
-    // }
+    result = await result.json();
+    if (result.status == "Success") {
+      // localStorage.setItem(
+      //   "user",
+      //   JSON.stringify({
+      //     status: "Success",
+      //     statusCode: "S101",
+      //     message: "Log in successful",
+      //     userDetails: {
+      //       id: 1,
+      //       emailId: "deepali.gupta@gmail.com",
+      //       password: "dGVzdA==",
+      //     },
+      //   })
+      // );
+      localStorage.setItem("user", JSON.stringify(result.userDetails));
+      toast.success("User successfully logged in!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 5000);
+    } else {
+      toast.error(result.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
   }
+  // }
   return (
     <>
       <Container id="signin">
