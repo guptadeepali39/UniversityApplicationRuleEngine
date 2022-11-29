@@ -47,16 +47,31 @@ public class UserService {
 	public UserResponse checkLogin(User user) {
 		UserResponse userResponse = new UserResponse();
 		String encodedPassword = convertToBase64(user.getPassword());
-		Optional<User> existingUser = userRepository.findByEmailIdAndPassword(user.getEmailId(), encodedPassword);
-		if (existingUser.isPresent()) {
-			userResponse.setMessage("Log in successful");
+		Optional<User> existingUser = userRepository.findByEmailId(user.getEmailId());
+		if(existingUser.isPresent())
+		{
+			existingUser = userRepository.findByEmailIdAndPassword(user.getEmailId(), encodedPassword);
+			if (existingUser.isPresent()) {
+				userResponse.setMessage("Log in successful");
+				userResponse.setStatus("Success");
+				userResponse.setStatusCode("S101");
+				return userResponse;
+			}
+			else {
+				userResponse.setMessage("Invalid credentials.");
+				userResponse.setStatus("Success");
+				userResponse.setStatusCode("E101");
+			}
+		}
+		else
+		{
+			userResponse.setMessage("No user found.");
 			userResponse.setStatus("Success");
-			userResponse.setStatusCode("S101");
+			userResponse.setStatusCode("E101");
 			return userResponse;
 		}
-		userResponse.setMessage("No user found.");
-		userResponse.setStatus("Success");
-		userResponse.setStatusCode("E101");
+		
+		
 		return userResponse;
 
 	}

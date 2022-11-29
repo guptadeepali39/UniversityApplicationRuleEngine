@@ -11,7 +11,7 @@ import {
   Text,
   SignUpButton,
   FormH6,
-} from "./SignUpElements";
+} from "./SignupElements";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../Footer";
@@ -35,6 +35,7 @@ const SignUp = () => {
   }, []);
 
   async function createAccount(e) {
+    localStorage.removeItem("user");
     let item = { emailId, password };
     let result = await fetch("http://localhost:8000/api/register", {
       method: "POST",

@@ -1,13 +1,13 @@
 package dto;
 
-import com.capstone.ingestion.domain.User;
+import com.capstone.ingestion.domain.StudentDetails;
 
-public class UserResponse {
+public class StudentDetailRepsonse {
 
 	private String status;
 	private String statusCode;
 	private String message;
-	private User user;
+	private StudentDetails studentDetails;
 
 	public String getStatus() {
 		return status;
@@ -33,12 +33,12 @@ public class UserResponse {
 		this.message = message;
 	}
 
-	public User getUser() {
-		return user;
+	public StudentDetails getStudentDetails() {
+		return studentDetails;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setStudentDetails(StudentDetails studentDetails) {
+		this.studentDetails = studentDetails;
 	}
 
 }
