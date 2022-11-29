@@ -14,18 +14,20 @@ import dto.UserResponse;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = { "${settings.cors_origin}" })
+
 public class UserController {
 	@Autowired
 	UserService userService;
 
-	@PostMapping("/signUp")
+	@PostMapping("/register")
+	@CrossOrigin(origins = { "${settings.cors_origin}" })
 	public UserResponse addUser(@RequestBody User user) {
 		UserResponse response = userService.addUser(user);
 		return response;
 	}
 	
 	@PostMapping("/login")
+	@CrossOrigin(origins = { "${settings.cors_origin}" })
 	public UserResponse login(@RequestBody User user) {
 		UserResponse response = userService.checkLogin(user);
 		return response;
