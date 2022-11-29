@@ -40,6 +40,7 @@ const CreateApplication = () => {
   var [isLoggedIn, setIsLoggedIn] = useState(
     JSON.parse(localStorage.getItem("user"))
   );
+  var user
   var navigate = useNavigate();
 
   useEffect(() => {
@@ -52,15 +53,15 @@ const CreateApplication = () => {
       user = JSON.parse(localStorage.getItem("user"));
       getUserDetails();
     }
-  });
+  },[]);
 
   // const logoutCall = () => {
   //   localStorage.removeItem("user");
   //   window.location.reload();
   // };
 
-  const getUserDetails = async (e) => {
-    e.preventDefault();
+  const getUserDetails = async () => {
+    // e.preventDefault();
     try {
       fetch(`http://localhost:8000/api/getUserDetails/${user.id}`, {
         method: "GET",
@@ -72,7 +73,6 @@ const CreateApplication = () => {
         .then((res) => res.json())
         .then((result) => {
           if (result.statusCode == "S101" && result.status == "Success") {
-            toast.success(result.message);
             setFirstName(result.studentDetails.firstName);
             setLastName(result.studentDetails.lastName);
             setGender(result.studentDetails.gender);

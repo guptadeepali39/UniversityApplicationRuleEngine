@@ -44,7 +44,7 @@ public class StudentDetailsService {
 		try {
 			StudentDetails exitsingDetails = studentDetailsRepository.findDetailsByUserId(id);
 
-			resp.setMessage("Details saved successfully.");
+			resp.setMessage("Details reterived.");
 			resp.setStatus("Success");
 			resp.setStatusCode("S101");
 			resp.setStudentDetails(exitsingDetails);
