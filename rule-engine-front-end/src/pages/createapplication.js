@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import SignIn from "../components/SignIn";
+import CreateApplication from "../components/CreateApplication";
 import ScrollToTop from "../services/scrollToTop";
 
-const SignInPage = () => {
+const CreateApplicationPage = () => {
   // const UserContext = createContext();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -17,9 +17,9 @@ const SignInPage = () => {
   return (
     <>
       <ScrollToTop />
-      <SignIn />
+      <CreateApplication />
     </>
   );
 };
 
-export default SignInPage;
+export default CreateApplicationPage;

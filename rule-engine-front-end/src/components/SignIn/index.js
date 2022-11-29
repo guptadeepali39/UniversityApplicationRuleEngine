@@ -9,25 +9,31 @@ import {
   FormInput,
   FormButton,
   Text,
+  SignUpButton,
 } from "./SignInElements";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../Footer";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  var [emailId, setEmail] = useState("");
+  var [password, setPassword] = useState("");
+  var navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (localStorage.getItem("user")) {
-      navigate.push("/add");
+      toast.success("User already logged in!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      navigate("/");
     }
-  });
+  }, []);
 
-  async function login() {
-    // console.warn(email, password);
-    let item = { email, password };
+  async function login(e) {
+    // let item = { emailId, password };
     // let result = await fetch("http://localhost:8000/api/login", {
     //   method: "POST",
     //   headers: {
@@ -37,14 +43,38 @@ const SignIn = () => {
     //   body: JSON.stringify(item),
     // });
     // result = await result.json();
-    // localStorage.setItem("user", JSON.stringify(result));
-    // navigate.push("add");
+    // if (result.status == "Success") {
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        status: "Success",
+        statusCode: "S101",
+        message: "Log in successful",
+        userDetails: {
+          id: 1,
+          emailId: "deepali.gupta@gmail.com",
+          password: "dGVzdA==",
+        },
+      })
+    );
+    toast.success("User successfully logged in!", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+    setTimeout(() => {
+      navigate("/");
+    }, 5000);
+    // } else {
+    //   toast.error("Invalid credentials!", {
+    //     position: toast.POSITION.TOP_RIGHT,
+    //   });
+    // }
   }
   return (
     <>
       <Container id="signin">
         <FormWrap>
           <Icon to="/">Rule Engine</Icon>
+          <ToastContainer />
           <FormContent>
             <Form action="#">
               <FormH1>Sign in to your account</FormH1>
@@ -62,12 +92,17 @@ const SignIn = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              {/* {emailId.valid ? ( */}
               <FormButton type="submit" onClick={login}>
                 Sign in
               </FormButton>
-              {/* <Text>
-                <u>Forgot password</u> or <u>Sign up</u>
-              </Text> */}
+              {/* ) : (
+                ""
+              )} */}
+              <Text>
+                Don't have an account?{" "}
+                <SignUpButton to="/signup">Sign up</SignUpButton>
+              </Text>
             </Form>
           </FormContent>
         </FormWrap>

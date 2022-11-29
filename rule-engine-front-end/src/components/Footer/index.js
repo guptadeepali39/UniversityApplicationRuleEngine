@@ -34,19 +34,19 @@ const Footer = () => {
       <FooterWrap>
         <FooterLinksContainer>
           <FooterLinksWrapper>
-            <FooterLinkItems>
+            {/* <FooterLinkItems>
               <FooterLinkTitle>About Us</FooterLinkTitle>
               <FooterLink to="/signin">How it works</FooterLink>
               <FooterLink to="/signin">Testimonials</FooterLink>
               <FooterLink to="/signin">Careers</FooterLink>
               <FooterLink to="/signin">Investors</FooterLink>
               <FooterLink to="/signin">Terms of Service</FooterLink>
-            </FooterLinkItems>
-            <FooterLinkItems>
+            </FooterLinkItems> */}
+            {/* <FooterLinkItems>
               <FooterLinkTitle>Contact Us</FooterLinkTitle>
               <FooterLink to="/signin">Contact</FooterLink>
               <FooterLink to="/signin">Support</FooterLink>
-            </FooterLinkItems>
+            </FooterLinkItems> */}
             <FooterLinkItems>
               <FooterLinkTitle>Team</FooterLinkTitle>
               <FooterLink2
@@ -77,7 +77,7 @@ const Footer = () => {
                 href="https://github.com/guptadeepali39/UniversityApplicationRuleEngine">
                 Github
               </FooterLink2>
-              <FooterLink2 target="_blank" href="">
+              {/* <FooterLink2 target="_blank" href="">
                 Weekly Reports
               </FooterLink2>
               <FooterLink2 target="_blank" href="">
@@ -88,7 +88,7 @@ const Footer = () => {
               </FooterLink2>
               <FooterLink2 target="_blank" href="">
                 Architecture
-              </FooterLink2>
+              </FooterLink2> */}
             </FooterLinkItems>
           </FooterLinksWrapper>
         </FooterLinksContainer>
@@ -107,7 +107,7 @@ const Footer = () => {
                 aria-label="Github">
                 <FaGithub />
               </SocialIconLink>
-              <SocialIconLink href="/" target="_blank" aria-label="Instagram">
+              {/* <SocialIconLink href="/" target="_blank" aria-label="Instagram">
                 <FaInstagram />
               </SocialIconLink>
               <SocialIconLink href="/" target="_blank" aria-label="Facebook">
@@ -121,7 +121,7 @@ const Footer = () => {
                 target="_blank"
                 aria-label="Twitter">
                 <FaTwitter />
-              </SocialIconLink>
+              </SocialIconLink> */}
             </SocialIcons>
           </SocialMediaWrap>
         </SocialMedia>

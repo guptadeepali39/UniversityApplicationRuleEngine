@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "../buttonElements";
 import {
   InfoContainer,
@@ -31,6 +31,13 @@ const Info = ({
   dark,
   dark2,
 }) => {
+  var [isSignedIn, setIsSignedIn] = useState(false);
+  useEffect(() => {
+    // window.addEventListener("scroll", changeNav);
+    isSignedIn = localStorage.getItem("user")
+      ? setIsSignedIn(true)
+      : setIsSignedIn(false);
+  }, []);
   return (
     <>
       <InfoContainer lightBg={lightBg} id={id}>
@@ -40,21 +47,27 @@ const Info = ({
               <TextWrapper>
                 <TopLine>{topLine}</TopLine>
                 <Heading lightText={lightText}>{headline}</Heading>
-                <Subtitle lightText={lightText}>{description}</Subtitle>
-                <BtnWrap>
-                  <Button
-                    to="/signin"
-                    // smooth={true}
-                    duration={500}
-                    // spy={true}
-                    exact="true"
-                    offset={-80}
-                    primary={primary ? 1 : 0}
-                    dark={dark ? 1 : 0}
-                    dark2={dark2 ? 1 : 0}>
-                    {buttonLabel}
-                  </Button>
-                </BtnWrap>
+                {!isSignedIn ? (
+                  <>
+                    <Subtitle lightText={lightText}>{description}</Subtitle>
+                    <BtnWrap>
+                      <Button
+                        to="/signin"
+                        // smooth={true}
+                        duration={500}
+                        // spy={true}
+                        exact="true"
+                        offset={-80}
+                        primary={primary ? 1 : 0}
+                        dark={dark ? 1 : 0}
+                        dark2={dark2 ? 1 : 0}>
+                        {buttonLabel}
+                      </Button>
+                    </BtnWrap>
+                  </>
+                ) : (
+                  ""
+                )}
               </TextWrapper>
             </Column1>
             <Column2>

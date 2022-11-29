@@ -36,9 +36,9 @@ const NavbarForPages = ({ toggle }) => {
             <NavLogo to="/" onClick={toggleHome}>
               Rule Engine
             </NavLogo>
-            <NavBtn>
+            {/* <NavBtn>
               <NavBtnLink to="/signup">Sign up</NavBtnLink>
-            </NavBtn>
+            </NavBtn> */}
           </NavbarContainer>
         </Nav>
       </IconContext.Provider>

@@ -102,6 +102,22 @@ export const FormButton = styled.button`
   }
 `;
 
+export const SignUpButton = styled(Link)`
+  background: #0d6efd;
+  padding: 16px 0;
+  border: none;
+  border-radius: 4px;
+  color: #000;
+  font-size: 20px;
+  cursor: pointer;
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    color: #0d6efd;
+    background: white;
+  }
+`;
+
 export const Text = styled.span`
   text-align: center;
   margin-top: 24px;

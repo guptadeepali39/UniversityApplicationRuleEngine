@@ -85,7 +85,7 @@ export const NavLinks = styled(LinkS)`
   }
 `;
 
-export const NavLinksSignUpBtn = styled(LinkR)`
+export const ApplicationBtnLink = styled(LinkR)`
   color: #010606;
   display: flex;
   align-items: center;
@@ -97,6 +97,16 @@ export const NavLinksSignUpBtn = styled(LinkR)`
   &.active {
     border-bottom: 3px solid #015cbf;
   }
+`;
+
+export const NavLinksSignUpBtn = styled(LinkR)`
+  color: #010606;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 1rem;
+  height: 100%;
+  cursor: pointer;
 `;
 
 export const NavBtn = styled.nav`
@@ -119,6 +129,26 @@ export const NavBtnLink = styled(LinkR)`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: white;
+    color: #015cbf;
+  }
+`;
+
+export const LogoutBtn = styled.button`
+  border-radius: 50px;
+  background: #015cbf;
+  white-space: nowrap;
+  padding: 10px 22px;
+  color: black;
+  font-size: 16px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  border: none;
 
   &:hover {
     transition: all 0.2s ease-in-out;

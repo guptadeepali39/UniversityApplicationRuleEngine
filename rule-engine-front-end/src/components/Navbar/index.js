@@ -10,13 +10,15 @@ import {
   NavMenu,
   NavBtn,
   NavBtnLink,
-  NavLinksSignUpBtn,
+  ApplicationBtnLink,
+  LogoutBtn,
 } from "./navbarElements";
 import { FaBars } from "react-icons/fa";
 import { animateScroll as scroll } from "react-scroll";
 
 const Navbar = ({ toggle }) => {
   const [scrollNav, setScrollNav] = useState(false);
+  var [isSignedIn, setIsSignedIn] = useState(false);
 
   const changeNav = () => {
     if (window.scrollY >= 80) {
@@ -28,10 +30,18 @@ const Navbar = ({ toggle }) => {
 
   useEffect(() => {
     window.addEventListener("scroll", changeNav);
+    isSignedIn = localStorage.getItem("user")
+      ? setIsSignedIn(true)
+      : setIsSignedIn(false);
   }, []);
 
   const toggleHome = () => {
     scroll.scrollToTop();
+  };
+
+  const logoutCall = () => {
+    localStorage.removeItem("user");
+    window.location.reload();
   };
 
   return (
@@ -83,21 +93,21 @@ const Navbar = ({ toggle }) => {
                 </NavLinks>
               </NavItem>
               <NavItem>
-                <NavLinksSignUpBtn
-                  to="/signup"
-                  // smooth={true ? 1 : 0}
-                  // duration={500}
-                  // spy={true}
-                  // exact="true"
-                  // offset={-80}
-                  // activeClass="active"
-                >
-                  Sign up
-                </NavLinksSignUpBtn>
+                {isSignedIn ? (
+                  <ApplicationBtnLink to="/application">
+                    Application
+                  </ApplicationBtnLink>
+                ) : (
+                  ""
+                )}
               </NavItem>
             </NavMenu>
             <NavBtn>
-              <NavBtnLink to="/signin">Sign in</NavBtnLink>
+              {isSignedIn ? (
+                <LogoutBtn onClick={logoutCall}>Logout</LogoutBtn>
+              ) : (
+                <NavBtnLink to="/signin">Sign in</NavBtnLink>
+              )}
             </NavBtn>
           </NavbarContainer>
         </Nav>

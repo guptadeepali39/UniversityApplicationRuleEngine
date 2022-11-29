@@ -1,4 +1,4 @@
-import { React } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SidebarContainer,
   Icon,
@@ -8,9 +8,24 @@ import {
   SidebarLink,
   SideBtnWrap,
   SidebarRoute,
+  ApplicationRoute,
 } from "./sidebarElement";
 
 const Sidebar = ({ isOpen, toggle }) => {
+  var [isSignedIn, setIsSignedIn] = useState(false);
+
+  useEffect(() => {
+    // window.addEventListener("scroll", changeNav);
+    isSignedIn = localStorage.getItem("user")
+      ? setIsSignedIn(true)
+      : setIsSignedIn(false);
+  }, []);
+
+  const logoutCall = () => {
+    localStorage.removeItem("user");
+    window.location.reload();
+  };
+
   return (
     <SidebarContainer isOpen={isOpen} onClick={toggle}>
       <Icon onClick={toggle}>
@@ -27,11 +42,21 @@ const Sidebar = ({ isOpen, toggle }) => {
           <SidebarLink to="team" onClick={toggle}>
             Team
           </SidebarLink>
-          <SidebarLink to="/signup">Sign up</SidebarLink>
+          {isSignedIn ? (
+            <ApplicationRoute to="/application">Application</ApplicationRoute>
+          ) : (
+            ""
+          )}
         </SidebarMenu>
-        <SideBtnWrap>
-          <SidebarRoute to="/signin">Sign In</SidebarRoute>
-        </SideBtnWrap>
+        {isSignedIn ? (
+          <SideBtnWrap>
+            <SidebarRoute onClick={logoutCall}>Logout</SidebarRoute>
+          </SideBtnWrap>
+        ) : (
+          <SideBtnWrap>
+            <SidebarRoute to="/signin">Sign In</SidebarRoute>
+          </SideBtnWrap>
+        )}
       </SidebarWrapper>
     </SidebarContainer>
   );
