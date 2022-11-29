@@ -22,7 +22,6 @@ const SignUp = () => {
   var [emailId, setEmail] = useState("");
   var [password, setPassword] = useState("");
   var [confirmPassword, setConfirmPassword] = useState("");
-  var [user, setUser] = useState("");
   var [isLoggedIn, setIsLoggedIn] = useState(
     JSON.parse(localStorage.getItem("user"))
   );
@@ -38,34 +37,35 @@ const SignUp = () => {
     }
   }, []);
 
-  async function createAccount(e) {
+  const createAccount = async (e) => {
     localStorage.removeItem("user");
     setIsLoggedIn(false);
-    let item = { emailId, password };
-    return fetch("http://localhost:8000/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(item),
-    }).then((result) => {
-      result = result.json();
-      if (result.statusCode == "S101") {
-        // localStorage.setItem("user", JSON.stringify(result.userDetails));
-        toast.success(result.message, {
-          position: toast.POSITION.TOP_RIGHT,
+    e.preventDefault();
+    try {
+      fetch("http://localhost:8000/api/register", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ emailId, password }),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.statusCode == "S101" && result.status == "Success") {
+            toast.success(result.message);
+            navigate("/signin");
+          } else {
+            toast.error(result.message);
+          }
+        })
+        .catch((error) => {
+          toast.error("Internal Server Error");
         });
-        setTimeout(() => {
-          navigate("/signin");
-        }, 5000);
-      } else {
-        toast.error(result.message, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      }
-    });
-  }
+    } catch (error) {
+      toast.error("Internal Server Error");
+    }
+  };
 
   return (
     <>
