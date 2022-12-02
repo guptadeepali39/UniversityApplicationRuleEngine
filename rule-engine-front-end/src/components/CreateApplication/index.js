@@ -56,6 +56,7 @@ const CreateApplication = () => {
   var [isLoggedIn, setIsLoggedIn] = useState(
     JSON.parse(localStorage.getItem("user"))
   );
+  var user
   var navigate = useNavigate();
 
   useEffect(() => {
@@ -70,7 +71,7 @@ const CreateApplication = () => {
       setuserId(user.id);
       getUserDetails();
     }
-  });
+  },[]);
 
   const getUserDetails = async (e) => {
     e.preventDefault()
