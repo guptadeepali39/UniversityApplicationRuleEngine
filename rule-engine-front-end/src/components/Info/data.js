@@ -4,7 +4,7 @@ export const homeObjOne = {
   lightText: false,
   lightTextDesc: true,
   topLine: "Secure your future",
-  headline: "Lambton College is waiting for you",
+  headline: "Lambton University is waiting for you",
   description:
     "Sign up to an exclusive portal to check your eligibility in the top university of Canada",
   buttonLabel: "Get started",
