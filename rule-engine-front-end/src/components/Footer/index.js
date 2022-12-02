@@ -95,10 +95,10 @@ const Footer = () => {
         <SocialMedia>
           <SocialMediaWrap>
             <SocialLogo to="/" onClick={toggleHome}>
-              Rule Engine
+              Lambton Admissions
             </SocialLogo>
             <WebsiteRights>
-              Rule Engine &copy; {new Date().getFullYear()} All rights reserved.
+              Lambton Admissions &copy; {new Date().getFullYear()} All rights reserved.
             </WebsiteRights>
             <SocialIcons>
               <SocialIconLink

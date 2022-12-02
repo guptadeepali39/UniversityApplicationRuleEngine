@@ -74,7 +74,7 @@ const SignIn = () => {
     <>
       <Container id="signin">
         <FormWrap>
-          <Icon to="/">Rule Engine</Icon>
+          <Icon to="/">Lambton Admissions</Icon>
           <ToastContainer />
           <FormContent>
             <Form action="#" onSubmit={login}>

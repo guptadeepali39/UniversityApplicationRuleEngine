@@ -34,7 +34,7 @@ const NavbarForPages = ({ toggle }) => {
         <Nav scrollNav={scrollNav}>
           <NavbarContainer>
             <NavLogo to="/" onClick={toggleHome}>
-              Rule Engine
+              Lambton Admissions
             </NavLogo>
             {/* <NavBtn>
               <NavBtnLink to="/signup">Sign up</NavBtnLink>

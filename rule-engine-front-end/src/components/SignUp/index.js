@@ -71,7 +71,7 @@ const SignUp = () => {
     <>
       <Container id="signup">
         <FormWrap>
-          <Icon to="/">Rule Engine</Icon>
+          <Icon to="/">Lambton Admissions</Icon>
           <ToastContainer />
           <FormContent>
             <Form action="#">

@@ -19,15 +19,11 @@ import Footer from "../Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AppConstant from "../../services/apiConstant";
-import {
-  useWindowSize,
-  useWindowWidth,
-  useWindowHeight,
-} from "@react-hook/window-size";
 import Confetti from "react-confetti";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 const CreateApplication = () => {
-  const { width, height } = useWindowSize();
+  const { height, width } = useWindowDimensions();
   var [user, setUser] = useState({});
   var [firstName, setFirstName] = useState("");
   var [lastName, setLastName] = useState("");
@@ -39,19 +35,19 @@ const CreateApplication = () => {
   var [studentType, setStudentType] = useState("international");
   var [isLanguageTest, setisLanguageTest] = useState("Y");
   var [languageTestType, setlanguageTestType] = useState("IELTS");
-  var [languageTestScore, setlanguageTestScore] = useState(null);
+  var [languageTestScore, setlanguageTestScore] = useState(0);
   var [levelOfEducation, setlevelOfEducation] = useState("Bachelors");
   var [gpa, setGPA] = useState(0);
-  var [relevantExperince, setrelevantExperience] = useState(null);
+  var [relevantExperince, setrelevantExperience] = useState(0);
   var [fieldOfStudy, setfieldOfStudy] = useState("Information Technology");
   var [previousFieldOfStudy, setpreviousFieldOfStudy] = useState(
     "Information Technology"
   );
-  var [familyIncome, setFamilyIncome] = useState(null);
-  var [totalEducation, setTotalEducation] = useState(null);
+  var [familyIncome, setFamilyIncome] = useState(0);
+  var [totalEducation, setTotalEducation] = useState(0);
   var [course, setCourse] = useState("Postgraduate Diploma");
-  var [id, setId] = useState(null);
-  var [userId, setuserId] = useState(null);
+  var [id, setId] = useState();
+  var [userId, setuserId] = useState();
   var [confetti, setConfetti] = useState(false);
   var [isLoggedIn, setIsLoggedIn] = useState(
     JSON.parse(localStorage.getItem("user"))
@@ -69,56 +65,51 @@ const CreateApplication = () => {
     } else {
       user = JSON.parse(localStorage.getItem("user"));
       setuserId(user.id);
-      getUserDetails();
+      try {
+        fetch(`${AppConstant.BASE_API_URL}getUserDetails/${user.id}`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((result) => {
+            if (result.statusCode == "S101" && result.status == "Success") {
+              if (result.studentDetails) {
+                toast.success(result.message);
+                setFirstName(result.studentDetails.firstName);
+                setLastName(result.studentDetails.lastName);
+                setGender(result.studentDetails.gender);
+                setAddress1(result.studentDetails.address1);
+                setAddress2(result.studentDetails.address2);
+                setPincode(result.studentDetails.pincode);
+                setCountry(result.studentDetails.country);
+                setStudentType(result.studentDetails.studentType);
+                setisLanguageTest(result.studentDetails.isLanguageTest);
+                setlanguageTestType(result.studentDetails.languageTestType);
+                setlanguageTestScore(result.studentDetails.languageTestScore);
+                setlevelOfEducation(result.studentDetails.levelOfEducation);
+                setGPA(result.studentDetails.gpa);
+                setrelevantExperience(result.studentDetails.relevantExperince);
+                setfieldOfStudy(result.studentDetails.fieldOfStudy);
+                setTotalEducation(result.studentDetails.totalEducation);
+                setFamilyIncome(result.studentDetails.familyIncome);
+                setpreviousFieldOfStudy(
+                  result.studentDetails.previousFieldOfStudy
+                );
+                setId(result.studentDetails.id);
+              }
+            }
+          })
+          .catch((error) => {
+            toast.error("Internal Server Error");
+          });
+      } catch (error) {
+        toast.error("Internal Server Error");
+      }
     }
   },[]);
-
-  const getUserDetails = async (e) => {
-    e.preventDefault()
-    try {
-      fetch(`${AppConstant.BASE_API_URL}getUserDetails/${user.id}`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((result) => {
-          if (result.statusCode == "S101" && result.status == "Success") {
-            if (result.studentDetails) {
-              toast.success(result.message);
-              setFirstName(result.studentDetails.firstName);
-              setLastName(result.studentDetails.lastName);
-              setGender(result.studentDetails.gender);
-              setAddress1(result.studentDetails.address1);
-              setAddress2(result.studentDetails.address2);
-              setPincode(result.studentDetails.pincode);
-              setCountry(result.studentDetails.country);
-              setStudentType(result.studentDetails.studentType);
-              setisLanguageTest(result.studentDetails.isLanguageTest);
-              setlanguageTestType(result.studentDetails.languageTestType);
-              setlanguageTestScore(result.studentDetails.languageTestScore);
-              setlevelOfEducation(result.studentDetails.levelOfEducation);
-              setGPA(result.studentDetails.gpa);
-              setrelevantExperience(result.studentDetails.relevantExperince);
-              setfieldOfStudy(result.studentDetails.fieldOfStudy);
-              setTotalEducation(result.studentDetails.totalEducation);
-              setFamilyIncome(result.studentDetails.familyIncome);
-              setpreviousFieldOfStudy(
-                result.studentDetails.previousFieldOfStudy
-              );
-              setId(result.studentDetails.id);
-            }
-          }
-        })
-        .catch((error) => {
-          toast.error("Internal Server Error");
-        });
-    } catch (error) {
-      toast.error("Internal Server Error");
-    }
-  };
 
   const saveUserDetails = async (e) => {
     e.preventDefault();
@@ -170,6 +161,7 @@ const CreateApplication = () => {
                 .then((resp) => resp.json())
                 .then((response) => {
                   if(response.result == 'Eligible'){
+                    window.scrollTo(0, 0);
                     toast.success(response.message);
                     showConfetti();
                   }
@@ -194,7 +186,6 @@ const CreateApplication = () => {
   };
 
   function showConfetti() {
-    window.scrollTo(0, 0);
       setConfetti(true);
       setTimeout(() => {
         setConfetti(false);
@@ -204,20 +195,20 @@ const CreateApplication = () => {
   return (
     <>
       <Container id="application">
-        {confetti ? (
-          <Confetti
-            width={width}
-            height={height}
-            run={true}
-            numberOfPieces={1000}
-            opacity={0.7}
-            recycle={false}
-          />
-        ) : (
-          ""
-        )}
         <FormWrap>
-          <Icon to="/">Rule Engine</Icon>
+          {confetti ? (
+            <Confetti
+              run={true}
+              numberOfPieces={1000}
+              opacity={0.7}
+              recycle={false}
+              width={window.innerWidth}
+              height={window.innerHeight}
+            />
+          ) : (
+            ""
+          )}
+          <Icon to="/">Lambton Admissions</Icon>
           <ToastContainer />
           <FormContent>
             <Form action="#" className="col-md-12">

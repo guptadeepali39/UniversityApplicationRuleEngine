@@ -50,7 +50,7 @@ const Navbar = ({ toggle }) => {
         <Nav scrollNav={scrollNav}>
           <NavbarContainer>
             <NavLogo to="/" onClick={toggleHome}>
-              Rule Engine
+              Lambton Admissions
             </NavLogo>
             <MobileIcon onClick={toggle}>
               <FaBars />
