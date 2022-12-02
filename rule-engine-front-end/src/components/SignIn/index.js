@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AppConstant from "../../services/apiConstant";
 
 const SignIn = () => {
   var [emailId, setEmail] = useState("");
@@ -41,65 +42,33 @@ const SignIn = () => {
     setIsLoggedIn(false);
     e.preventDefault();
     try {
-      fetch('http://localhost:8000/api/login', {
-        method: 'POST',
+      fetch(`${AppConstant.BASE_API_URL}login`, {
+        method: "POST",
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ emailId, password }),
-      }).then(res => res.json())
-        .then(result => {
-          if (result.statusCode == 'S101' && result.status == 'Success') {
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.statusCode == "S101" && result.status == "Success") {
             localStorage.setItem("user", JSON.stringify(result.user));
             setIsLoggedIn(true);
             setUser(result.userDetails);
-            toast.success(result.message)
+            toast.success(result.message);
             navigate("/");
-            }
-          else {
-            toast.error(result.message)
+          } else {
+            toast.error(result.message);
           }
         })
-        .catch(error => {
-          toast.error("Internal Server Error")
-        })
+        .catch((error) => {
+          toast.error("Internal Server Error");
+        });
     } catch (error) {
-      toast.error("Internal Server Error")
+      toast.error("Internal Server Error");
     }
   };
-
-
-  function login2(e) {
-    localStorage.removeItem("user");
-    setIsLoggedIn(false);
-    let item = { emailId, password };
-    return fetch("http://localhost:8000/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(item),
-    }).then((result) => {
-      result = result.json();
-      if (result.statusCode == "S101") {
-        localStorage.setItem("user", JSON.stringify(result.userDetails));
-        setIsLoggedIn(true);
-        setUser(result.userDetails);
-        toast.success(result.message, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-        setTimeout(() => {
-          navigate("/");
-        }, 2000);
-      } else {
-        toast.error(result.message, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      }
-    });
-  }
 
   return (
     <>
@@ -108,7 +77,7 @@ const SignIn = () => {
           <Icon to="/">Rule Engine</Icon>
           <ToastContainer />
           <FormContent>
-            <Form action="#">
+            <Form action="#" onSubmit={login}>
               <FormH1>Sign in to your account</FormH1>
               <FormLabel htmlFor="for">Email</FormLabel>
               <FormInput
@@ -124,13 +93,7 @@ const SignIn = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              {/* {emailId.valid ? ( */}
-              <FormButton type="submit" onClick={login}>
-                Sign in
-              </FormButton>
-              {/* ) : (
-                ""
-              )} */}
+              <FormButton type="submit">Sign in</FormButton>
               <Text>
                 Don't have an account?{" "}
                 <SignUpButton to="/signup">Sign up</SignUpButton>

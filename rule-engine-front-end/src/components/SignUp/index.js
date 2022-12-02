@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import AppConstant from "../../services/apiConstant";
 const SignUp = () => {
   var [emailId, setEmail] = useState("");
   var [password, setPassword] = useState("");
@@ -42,7 +42,7 @@ const SignUp = () => {
     setIsLoggedIn(false);
     e.preventDefault();
     try {
-      fetch("http://localhost:8000/api/register", {
+      fetch(`${AppConstant.BASE_API_URL}register`, {
         method: "POST",
         headers: {
           Accept: "application/json",
