@@ -6,6 +6,7 @@ public class EligibilityDTO {
 
 	private Student student;
 	private String result;
+	private String message;
 	public Student getStudent() {
 		return student;
 	}
@@ -18,4 +19,11 @@ public class EligibilityDTO {
 	public void setResult(String result) {
 		this.result = result;
 	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
 }

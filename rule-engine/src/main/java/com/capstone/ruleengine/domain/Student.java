@@ -36,14 +36,18 @@ public class Student implements Serializable {
 
 	private String gender;
 
-	private Long languageTestScore;
+	private Double languageTestScore;
 
 	private String levelOfEducation;
 
 	private String fieldOfStudy;
 
-	private Long gpa;
+	private Double gpa;
 
+    private Long familyIncome;
+    
+    private int totalEducation;
+    
 	public Long getId() {
 		return id;
 	}
@@ -164,11 +168,11 @@ public class Student implements Serializable {
 		this.gender = gender;
 	}
 
-	public Long getLanguageTestScore() {
+	public Double getLanguageTestScore() {
 		return languageTestScore;
 	}
 
-	public void setLanguageTestScore(Long languageTestScore) {
+	public void setLanguageTestScore(Double languageTestScore) {
 		this.languageTestScore = languageTestScore;
 	}
 
@@ -188,12 +192,28 @@ public class Student implements Serializable {
 		this.fieldOfStudy = fieldOfStudy;
 	}
 
-	public Long getGpa() {
+	public Double getGpa() {
 		return gpa;
 	}
 
-	public void setGpa(Long gpa) {
+	public void setGpa(Double gpa) {
 		this.gpa = gpa;
+	}
+
+	public Long getFamilyIncome() {
+		return familyIncome;
+	}
+
+	public void setFamilyIncome(Long familyIncome) {
+		this.familyIncome = familyIncome;
+	}
+
+	public int getTotalEducation() {
+		return totalEducation;
+	}
+
+	public void setTotalEducation(int totalEducation) {
+		this.totalEducation = totalEducation;
 	}
 
 

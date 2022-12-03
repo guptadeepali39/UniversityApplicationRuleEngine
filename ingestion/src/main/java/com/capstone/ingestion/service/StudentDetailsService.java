@@ -23,11 +23,21 @@ public class StudentDetailsService {
 		try {
 			studentDetailsRepository.save(details);
 
-			resp.setMessage("Details saved successfully.");
+			
 			resp.setStatus("Success");
 			resp.setStatusCode("S101");
 
-			log.info("Student details saved successfully.");
+			if(details.getId() != null)
+			{
+				resp.setMessage("Details updated successfully.");
+				log.info("Student details updated successfully.");
+			}
+			else
+			{
+				resp.setMessage("Details saved successfully.");
+				log.info("Student details saved successfully.");
+			}
+			
 		} catch (Exception ex) {
 			resp.setMessage("Internal server error.");
 			resp.setStatus("Failed");
@@ -49,13 +59,13 @@ public class StudentDetailsService {
 			resp.setStatusCode("S101");
 			resp.setStudentDetails(exitsingDetails);
 
-			log.info("Student details saved successfully.");
+			log.info("Student details fetched successfully.");
 		} catch (Exception ex) {
 			resp.setMessage("Internal server error.");
 			resp.setStatus("Failed");
 			resp.setStatusCode("E101");
 
-			log.info("Error occurred while saving student details." + ex);
+			log.info("Error occurred while fetching student details." + ex);
 
 		}
 		return resp;

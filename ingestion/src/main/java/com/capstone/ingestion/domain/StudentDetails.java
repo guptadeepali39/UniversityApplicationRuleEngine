@@ -50,6 +50,10 @@ public class StudentDetails {
 	private String fieldOfStudy;
 
 	private Long gpa;
+	
+	private Long totalEducation;
+	
+	private Long familyIncome;
 
 	public Long getId() {
 		return id;
@@ -203,4 +207,21 @@ public class StudentDetails {
 		this.course = course;
 	}
 
+	public Long getTotalEducation() {
+		return totalEducation;
+	}
+
+	public void setTotalEducation(Long totalEducation) {
+		this.totalEducation = totalEducation;
+	}
+
+	public Long getFamilyIncome() {
+		return familyIncome;
+	}
+
+	public void setFamilyIncome(Long familyIncome) {
+		this.familyIncome = familyIncome;
+	}
+
+	
 }

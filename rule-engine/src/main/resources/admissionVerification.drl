@@ -5,19 +5,83 @@ global org.slf4j.Logger log;
 
 dialect  "mvel"
 
-rule "International student"
+rule "Student Type"
 	when
     	$student : Student()
-        Student(!nationality.equalsIgnoreCase("Canadian"))         
+        Student(studentType.equalsIgnoreCase("international") && isLanguageTest.equalsIgnoreCase("N"))         
 	then
-		log.info("1 International student : {}", $student);
-        eligibilityDto.setResult("Reject");
-end
-rule "Canadian student"
+        eligibilityDto.setResult("Not Eligible");
+		eligibilityDto.setMessage("Language Test is mandatory for international students.");
+ end
+
+  rule "Student language test"
 	when
     	$student : Student()
-        Student(nationality.equalsIgnoreCase("Canadian"))         
+        Student(studentType.equalsIgnoreCase("international") && isLanguageTest.equalsIgnoreCase("Y") && languageTestScore <= 7.0)         
 	then
-		log.info("1 International student : {}", $student);
-        eligibilityDto.setResult("Approved");
-end
+        eligibilityDto.setMessage("Minimum score requirement for IELTS is 7.5.");
+		eligibilityDto.setResult("Not Eligible");
+ end
+
+ rule "Student course Undergraduate Diploma"
+	when
+    	$student : Student()
+        Student(course.equalsIgnoreCase("Undergraduate Diploma") && totalEducation < 10 )         
+	then
+        eligibilityDto.setMessage("For Undergraduate minimum 10 years of previous education is required.");
+		eligibilityDto.setResult("Not Eligible");
+ end
+
+  rule "Student course Bachelors"
+	when
+    	$student : Student()
+        Student(course.equalsIgnoreCase("Bachelors") && totalEducation < 12 )         
+	then
+        eligibilityDto.setMessage("For Bachelors minimum 12 years of previous education is required.");
+		eligibilityDto.setResult("Not Eligible");
+ end
+
+ rule "Student course Postgraduate Diploma"
+	when
+    	$student : Student()
+        Student(course.equalsIgnoreCase("Postgraduate Diploma") && totalEducation < 12 )         
+	then
+        eligibilityDto.setMessage("For Postgraduate Diploma minimum 12 years of previous education is required.");
+		eligibilityDto.setResult("Not Eligible");
+ end
+
+ rule "Student course Masters"
+	when
+    	$student : Student()
+        Student(course.equalsIgnoreCase("Masters") && totalEducation < 15 )         
+	then
+        eligibilityDto.setMessage("For Masters minimum 15 years of previous education is required.");
+		eligibilityDto.setResult("Not Eligible");
+ end
+
+rule "Student course Phd"
+	when
+    	$student : Student()
+        Student(course.equalsIgnoreCase("Phd") && totalEducation < 15 )         
+	then
+        eligibilityDto.setMessage("For Phd minimum 17 years of previous education is required.");
+		eligibilityDto.setResult("Not Eligible");
+ end
+
+ rule "Student Experince"
+	when
+    	$student : Student()
+        Student(course.equalsIgnoreCase("Phd") && relevantExperince < 2 )         
+	then
+        eligibilityDto.setMessage("For Phd you shoukd have alteast 2 years of experince.");
+		eligibilityDto.setResult("Not Eligible");
+ end
+
+  rule "Student GPA"
+	when
+    	$student : Student()
+        Student(gpa < 2.8)         
+	then
+        eligibilityDto.setMessage("Minimum GPA should be 2.8.");
+		eligibilityDto.setResult("Not Eligible");
+ end
