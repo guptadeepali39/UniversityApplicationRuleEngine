@@ -1,5 +1,5 @@
 {
-  "name": "rule-engine-front-end",
+  "name": "lambton-admissiions",
   "version": "0.1.0",
   "private": true,
   "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
