@@ -148,6 +148,11 @@ const CreateApplication = () => {
         .then((res) => res.json())
         .then((result) => {
           if (result.statusCode == "S101" && result.status == "Success") {
+            if (result.studentDetails) {
+              if (result.studentDetails.id) {
+                setId(response.studentDetails.id);
+              }
+            }
             toast.success("User details saved successfully");
             try {
               fetch(`${AppConstant.ELIGIBILITY_API_URL}eligibility`, {
@@ -166,13 +171,6 @@ const CreateApplication = () => {
                     showConfetti();
                   } else {
                     toast.error(response.message);
-                  }
-                  if (response) {
-                    if (response.student) {
-                      if (response.student.id) {
-                        setId(response.student.id);
-                      }
-                    }
                   }
                 })
                 .catch((error) => {
@@ -334,6 +332,7 @@ const CreateApplication = () => {
                 type="number"
                 placeholder="Total years of education"
                 max="50"
+                value={totalEducation}
                 onChange={(e) => setTotalEducation(e.target.value)}
                 required
               />
@@ -428,6 +427,7 @@ const CreateApplication = () => {
               <FormInput
                 type="number"
                 placeholder="Family income (in CAD, per year)"
+                value={familyIncome}
                 onChange={(e) => setFamilyIncome(e.target.value)}
                 required
               />
