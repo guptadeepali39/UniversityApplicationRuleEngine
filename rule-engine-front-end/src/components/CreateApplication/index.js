@@ -150,7 +150,7 @@ const CreateApplication = () => {
           if (result.statusCode == "S101" && result.status == "Success") {
             if (result.studentDetails) {
               if (result.studentDetails.id) {
-                setId(response.studentDetails.id);
+                setId(result.studentDetails.id);
               }
             }
             toast.success("User details saved successfully");
