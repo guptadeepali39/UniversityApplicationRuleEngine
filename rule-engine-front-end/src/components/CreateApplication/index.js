@@ -52,7 +52,7 @@ const CreateApplication = () => {
   var [isLoggedIn, setIsLoggedIn] = useState(
     JSON.parse(localStorage.getItem("user"))
   );
-  var user
+  var user;
   var navigate = useNavigate();
 
   useEffect(() => {
@@ -109,7 +109,7 @@ const CreateApplication = () => {
         toast.error("Internal Server Error");
       }
     }
-  },[]);
+  }, []);
 
   const saveUserDetails = async (e) => {
     e.preventDefault();
@@ -160,13 +160,19 @@ const CreateApplication = () => {
               })
                 .then((resp) => resp.json())
                 .then((response) => {
-                  if(response.result == 'Eligible'){
+                  if (response.result == "Eligible") {
                     window.scrollTo(0, 0);
                     toast.success(response.message);
                     showConfetti();
-                  }
-                  else{
+                  } else {
                     toast.error(response.message);
+                  }
+                  if (response) {
+                    if (response.student) {
+                      if (response.student.id) {
+                        setId(response.student.id);
+                      }
+                    }
                   }
                 })
                 .catch((error) => {
@@ -186,11 +192,11 @@ const CreateApplication = () => {
   };
 
   function showConfetti() {
-      setConfetti(true);
-      setTimeout(() => {
-        setConfetti(false);
-      }, 5000);
-  };
+    setConfetti(true);
+    setTimeout(() => {
+      setConfetti(false);
+    }, 5000);
+  }
 
   return (
     <>
